@@ -39,4 +39,16 @@
         <arg name="publish_joint_control"  value="$(arg publish_joint_control)" />
         <arg name="close_loop_odom"        value="$(arg close_loop_odom)" />
     </include>
+
+
+    <group if="$(arg hardware_connected)">
+        <node pkg="tf2_ros" type="static_transform_publisher" name="base_link_to_laser" args="0 0 0 0 0 0 $(arg frame_prefix)base_link $(arg frame_prefix)laser" />
+        <node pkg="tf2_ros" type="static_transform_publisher" name="base_link_to_imu"   args="0 0 0 0 0 0 $(arg frame_prefix)base_link $(arg frame_prefix)imu_link" />
+        <!-- include your hardware launch file here -->
+        <node pkg="hardware_interface" type="hardware_interface" name="hardware_interface" output="screen"/> 
+
+    </group>
+
+
+
 </launch>
